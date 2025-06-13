@@ -1,4 +1,29 @@
+# Brain Dump – Minimalist Productivity App
 
+**Brain Dump** is a minimalist, black-and-white productivity platform built using modern web technologies. It is optimized for clarity, speed, and deep workflow focus. Designed for thinkers, creators, and doers who want fewer distractions and more flow.
+
+---
+
+## Overview
+
+This is a Next.js-based full-stack productivity application with an emphasis on fast input, deep work, and task clarity. Brain Dump supports:
+
+- Rapid idea capture (unstructured → structured conversion)
+- Task management
+- Focus sessions (Pomodoro timers)
+- Daily planning
+- Habit tracking
+- Auto-saving and future extensibility for AI features and cloud sync
+
+---
+
+## Tech Stack
+
+| Technology         | Purpose                                     |
+|--------------------|---------------------------------------------|
+| TypeScript         | Type-safe, scalable development             |
+| Next.js            | Full-stack React framework                |
+| Tailwind CSS       | Utility-first, performant styling           |
 ---
 
 ## Features
