@@ -1,29 +1,36 @@
 # Brain Dump – Minimalist Productivity App
 
-**Brain Dump** is a minimalist, black-and-white productivity platform built using modern web technologies. It is optimized for clarity, speed, and deep workflow focus. Designed for thinkers, creators, and doers who want fewer distractions and more flow.
+**Brain Dump** is a minimalist, black-and-white productivity application built with React, TypeScript, and Tailwind CSS. Designed for clarity and deep focus, it features a powerful brain dump module that automatically structures raw thoughts into actionable tasks using AI.
 
 ---
 
 ## Overview
 
-This is a Next.js-based full-stack productivity application with an emphasis on fast input, deep work, and task clarity. Brain Dump supports:
+Brain Dump is an end-to-end productivity platform that transforms unstructured thoughts into organized action. It combines:
 
-- Rapid idea capture (unstructured → structured conversion)
-- Task management
-- Focus sessions (Pomodoro timers)
-- Daily planning
-- Habit tracking
-- Auto-saving and future extensibility for AI features and cloud sync
+- Brain dump space with AI-powered task extraction (via GPT-4)
+- Structured to-do list and task board
+- Timers for Pomodoro-style focused work
+- Habit tracking for behavior reinforcement
+- A clean, distraction-free dashboard experience
+
+This application is structured for scalability and performance, with custom routing and modular component architecture.
 
 ---
 
 ## Tech Stack
 
-| Technology         | Purpose                                     |
-|--------------------|---------------------------------------------|
-| TypeScript         | Type-safe, scalable development             |
-| Next.js            | Full-stack React framework                |
-| Tailwind CSS       | Utility-first, performant styling           |
+| Technology       | Purpose                                    |
+|------------------|--------------------------------------------|
+| **React (TSX)**  | Core UI framework                          |
+| **TypeScript**   | Static typing for scalability and safety   |
+| **React Router** | Client-side routing between views/pages    |
+| **Tailwind CSS** | Utility-first styling                      |
+| **PNPM**         | Fast package management                    |
+| **PostCSS**      | Modern CSS tooling                         |
+| **Vite**         | Lightning-fast bundler and dev server      |
+| **OpenAI API** (optional) | AI-powered task generation             |
+
 ---
 
 ## Features
