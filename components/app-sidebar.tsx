@@ -2,7 +2,6 @@
 
 import { useState } from "react"
 import {
-  Home,
   Calendar,
   CheckSquare,
   FileText,
@@ -15,6 +14,7 @@ import {
   Timer,
   Menu,
   X,
+  LayoutDashboard,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -28,7 +28,7 @@ export const AppSidebar = () => {
   const pathname = usePathname()
 
   const navigation = [
-    { name: "Dashboard", href: "/", icon: Home },
+    { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
     { name: "Brain Dump", href: "/brain-dump", icon: Brain },
     { name: "Tasks", href: "/tasks", icon: CheckSquare },
     { name: "Calendar", href: "/calendar", icon: Calendar },
@@ -88,14 +88,16 @@ export const AppSidebar = () => {
               <Avatar className="w-10 h-10 ring-2 ring-blue-500/20">
                 <AvatarImage src={user?.user_metadata?.avatar_url || "/placeholder.svg"} />
                 <AvatarFallback className="bg-gradient-to-br from-blue-500 to-purple-600 text-white text-sm font-medium">
-                  {user?.user_metadata?.full_name?.slice(0, 2).toUpperCase() || user?.email?.slice(0, 2).toUpperCase()}
+                  {user?.user_metadata?.full_name?.slice(0, 2).toUpperCase() ||
+                    user?.email?.slice(0, 2).toUpperCase() ||
+                    "ST"}
                 </AvatarFallback>
               </Avatar>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium text-gray-900 truncate">
                   {user?.user_metadata?.full_name || "Student"}
                 </p>
-                <p className="text-xs text-gray-500 truncate">{user?.email}</p>
+                <p className="text-xs text-gray-500 truncate">{user?.email || "student@example.com"}</p>
               </div>
             </div>
           </div>

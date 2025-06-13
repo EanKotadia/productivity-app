@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Brain, Mail, Lock, User, School, AlertCircle, CheckCircle, Sparkles, Database } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -25,6 +25,24 @@ export default function LoginPage() {
   const [success, setSuccess] = useState("")
   const [showDebug, setShowDebug] = useState(false)
 
+  useEffect(() => {
+    // Check if Supabase is properly configured
+    const checkSupabaseConfig = async () => {
+      try {
+        const { data, error } = await supabase.auth.getSession()
+        if (error) {
+          console.error("Supabase auth error:", error)
+          setError("Supabase configuration error. Please check the console for details.")
+        }
+      } catch (err) {
+        console.error("Failed to initialize Supabase client:", err)
+        setError("Failed to initialize authentication. Please check your environment variables.")
+      }
+    }
+
+    checkSupabaseConfig()
+  }, [])
+
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
@@ -33,6 +51,11 @@ export default function LoginPage() {
 
     try {
       console.log("Attempting to sign in with email:", email)
+
+      if (!supabase.auth) {
+        throw new Error("Supabase client not properly initialized")
+      }
+
       const { data, error } = await supabase.auth.signInWithPassword({
         email: email.trim(),
         password,
@@ -66,6 +89,10 @@ export default function LoginPage() {
       if (!fullName.trim()) throw new Error("Full name is required")
       if (!email.trim()) throw new Error("Email is required")
       if (password.length < 6) throw new Error("Password must be at least 6 characters")
+
+      if (!supabase.auth) {
+        throw new Error("Supabase client not properly initialized")
+      }
 
       console.log("Attempting to sign up with email:", email)
       const { data, error } = await supabase.auth.signUp({

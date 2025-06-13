@@ -3,90 +3,78 @@
 import type React from "react"
 
 import { createContext, useContext, useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
 import type { User } from "@supabase/supabase-js"
-import { supabase } from "@/lib/supabase"
-import { useRouter, usePathname } from "next/navigation"
+
+// Mock user for development without authentication
+const mockUser = {
+  id: "mock-user-id",
+  email: "student@example.com",
+  user_metadata: {
+    full_name: "Demo Student",
+    avatar_url: "/placeholder.svg",
+  },
+}
 
 interface AuthContextType {
   user: User | null
-  loading: boolean
+  signIn: (email: string, password: string) => Promise<void>
   signOut: () => Promise<void>
+  loading: boolean
+  error: string | null
 }
 
-const AuthContext = createContext<AuthContextType>({
-  user: null,
-  loading: true,
-  signOut: async () => {},
-})
-
-export const useAuth = () => {
-  const context = useContext(AuthContext)
-  if (!context) {
-    throw new Error("useAuth must be used within an AuthProvider")
-  }
-  return context
-}
+const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
   const router = useRouter()
-  const pathname = usePathname()
 
   useEffect(() => {
-    // Get initial session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      console.log("Initial auth session:", session ? "Authenticated" : "Not authenticated")
-      setUser(session?.user ?? null)
+    // Set mock user for development without authentication
+    setUser(mockUser as unknown as User)
+    setLoading(false)
+  }, [])
+
+  const signIn = async (email: string, password: string) => {
+    try {
+      setLoading(true)
+      setError(null)
+
+      // Mock successful sign-in
+      setUser(mockUser as unknown as User)
+      router.push("/dashboard")
+    } catch (error) {
+      console.error("Error signing in:", error)
+      setError("Failed to sign in")
+    } finally {
       setLoading(false)
-    })
-
-    // Listen for auth changes
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange(async (event, session) => {
-      console.log("Auth state changed:", event, session?.user?.email)
-      setUser(session?.user ?? null)
-      setLoading(false)
-
-      if (event === "SIGNED_IN" && session?.user) {
-        console.log("User signed in, creating/updating profile")
-        // Create or update profile when user signs in
-        const { error } = await supabase
-          .from("profiles")
-          .upsert({
-            id: session.user.id,
-            email: session.user.email!,
-            full_name: session.user.user_metadata?.full_name || "",
-            university: session.user.user_metadata?.university || "",
-          })
-          .select()
-
-        if (error) {
-          console.error("Error creating/updating profile:", error)
-        } else {
-          console.log("Profile updated successfully")
-        }
-
-        // Redirect to dashboard if not already there
-        if (pathname === "/login") {
-          router.push("/")
-        }
-      } else if (event === "SIGNED_OUT") {
-        console.log("User signed out, redirecting to login")
-        // Only redirect to login if not already there
-        if (pathname !== "/login") {
-          router.push("/login")
-        }
-      }
-    })
-
-    return () => subscription.unsubscribe()
-  }, [router, pathname])
-
-  const signOut = async () => {
-    await supabase.auth.signOut()
+    }
   }
 
-  return <AuthContext.Provider value={{ user, loading, signOut }}>{children}</AuthContext.Provider>
+  const signOut = async () => {
+    try {
+      setLoading(true)
+
+      // Mock sign-out
+      setUser(null)
+      router.push("/login")
+    } catch (error) {
+      console.error("Error signing out:", error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  return <AuthContext.Provider value={{ user, signIn, signOut, loading, error }}>{children}</AuthContext.Provider>
+}
+
+export const useAuth = () => {
+  const context = useContext(AuthContext)
+  if (context === undefined) {
+    throw new Error("useAuth must be used within an AuthProvider")
+  }
+  return context
 }

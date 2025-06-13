@@ -16,8 +16,8 @@ export function SupabaseConnectionTest() {
   // Check environment variables
   useEffect(() => {
     const vars = {
-      NEXT_PUBLIC_SUPABASE_URL: !!process.env.NEXT_PUBLIC_SUPABASE_URL,
-      NEXT_PUBLIC_SUPABASE_ANON_KEY: !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+      NEXT_PUBLIC_SUPABASE_URL: typeof process.env.NEXT_PUBLIC_SUPABASE_URL === "string",
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: typeof process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY === "string",
     }
     setEnvVars(vars)
   }, [])
@@ -29,6 +29,10 @@ export function SupabaseConnectionTest() {
 
     try {
       console.log("Testing Supabase connection...")
+
+      if (!supabase.from) {
+        throw new Error("Supabase client not properly initialized")
+      }
 
       // Simple query to test connection
       const { data, error } = await supabase.from("profiles").select("count").limit(1)
