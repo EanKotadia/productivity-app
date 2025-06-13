@@ -1,66 +1,42 @@
-# 🧠 Productivity App
-
-A minimalist, black-and-white productivity app built with **TypeScript**, **Next.js**, and **Tailwind CSS** — optimized for clarity, speed, and flow.
 
 ---
 
-### ⚙️ Tech Stack
+## Features
 
-- **TypeScript** – Type-safe, scalable development  
-- **Next.js** – Full-stack React framework  
-- **Tailwind CSS** – Utility-first styling  
-- **PNPM** – Fast, efficient package manager  
-- **PostCSS** – Modern CSS tooling  
-- **Vercel (optional)** – Instant deployments  
-
----
-
-### 📁 Folder Structure
-
-├── app/ # Next.js App Router entry (pages or layouts)
-├── components/ # Reusable UI components
-├── hooks/ # Custom React/TypeScript hooks
-├── lib/ # Shared logic, utilities, or API functions
-├── public/ # Static assets (images, icons, fonts)
-├── styles/ # Global styles, Tailwind base imports
-├── .gitignore # Ignored files for Git versioning
-├── README.md # Project description and setup guide
-├── components.json # UI component registry or design config
-├── next.config.mjs # Next.js configuration
-├── package.json # Project metadata and scripts
-├── pnpm-lock.yaml # Lockfile for dependency consistency
-├── postcss.config.mjs # PostCSS setup
-├── tailwind.config.ts # Tailwind CSS custom configuration
-└── tsconfig.json # TypeScript compiler options
+- **Task Management** – Add, edit, prioritize, and delete tasks
+- **Daily Focus View** – Minimal UI for structured task execution
+- **Pomodoro Timers** – Built-in focus sessions with auto-reset
+- **Habit Tracker** – Track recurring habits and consistency
+- **Auto-saving** – Persist data using browser storage
+- **Extendable Backend Hooks** – Add GPT-4, file vaults, or sync
+- **Future Integrations** – Cloud backup, calendar sync, AI planning
 
 ---
 
-### 🔑 Features
+## Getting Started
 
-✅ **Task Management** – Plan and prioritize your day  
-📆 **Daily Focus View** – Minimal UI for less distraction  
-⏱️ **Pomodoro Timers** – Track focused work intervals  
-📈 **Habit Tracker** – Build routines that stick  
-💾 **Auto-saving** – Persistent state in browser  
-☁️ **Future** – Cloud sync and calendar integration  
-
----
-
-### 🚀 Getting Started
-
-**Clone the repository**
-git clone https://github.com/yourusername/productivity-pulse.git
-cd productivity-app
-Install dependencies
+Clone the repository:
+Install dependencies:
 
 pnpm install
-Start development server
+Start the development server:
 
 pnpm dev
-Open http://localhost:3000 in your browser to see the app.
+Open your browser and visit:
 
-🧹 Scripts
-pnpm dev     # Start local dev server
-pnpm build   # Production build
-pnpm lint    # Run ESLint
-pnpm format  # Format with Prettier
+http://localhost:3000
+Available Scripts
+
+Script	Command	Description
+Development	pnpm dev	Launches local dev server on port 3000
+Production	pnpm build	Generates production build
+Linting	pnpm lint	Runs ESLint on the project
+Formatting	pnpm format	Formats code with Prettier configuration
+Contribution and Extensibility
+
+Fork the repository and submit a pull request for new features or bug fixes.
+Suggest enhancements or improvements via GitHub Issues.
+Easily customize themes and layout using Tailwind’s configuration.
+Extend features through custom React hooks and modular architecture.
+
+
